@@ -17,7 +17,7 @@ public class MeleeAtk : MonoBehaviour
 
 	[SerializeField]private int atkMode;//3개의 모션을 담당할 모드 변수
 
-    
+    //commitTestPlz!!!
 
 	private CameraLogic sceneCamera;
 
@@ -40,7 +40,8 @@ public class MeleeAtk : MonoBehaviour
 
     // Update is called once per frame
     IEnumerator AttackLogic()
-	{
+    {
+        
 		while (true)
 		{
 			if (Input.GetKeyDown(KeyCode.X))
