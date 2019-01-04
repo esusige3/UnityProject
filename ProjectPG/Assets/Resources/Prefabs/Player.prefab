@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 50862315134517084}
   - component: {fileID: 114610865414332792}
   - component: {fileID: 114976367073126922}
-  - component: {fileID: 70292099657273084}
   - component: {fileID: 4570671195251443550}
+  - component: {fileID: 5709733484809266648}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f8781f2dc55c0a34388c2a91dbc53f02, type: 3}
-  m_Color: {r: 1, g: 0.5383495, b: 0.13679248, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 37426dfe5cfb14626a6e1c60f8d927eb, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,18 +100,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.12302473}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1.2460494}
   m_EdgeRadius: 0
 --- !u!50 &50862315134517084
 Rigidbody2D:
@@ -152,7 +152,7 @@ MonoBehaviour:
   gizmoHeight: 0.18
   gizmoWidth: 0.66
   gizmoX: 0.3
-  gizmoY: 0.64
+  gizmoY: 0.93
   grounded: 1
   groundLayer:
     serializedVersion: 2
@@ -180,22 +180,6 @@ MonoBehaviour:
     m_Bits: 512
   atkRange: 0.76
   atkMode: 1
---- !u!70 &70292099657273084
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167277147104824}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.00297662}
-  m_Size: {x: 1.2946801, y: 1.3155168}
-  m_Direction: 0
 --- !u!114 &4570671195251443550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +194,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 209142949008139216}
   bullet: {fileID: 5890044218618080448, guid: d66fcc340997298439922793d43b6224, type: 3}
+--- !u!95 &5709733484809266648
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167277147104824}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d5326eedebc1fe744be720d8e328a7f0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1822533697234778
 GameObject:
   m_ObjectHideFlags: 0

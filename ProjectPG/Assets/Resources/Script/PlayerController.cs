@@ -38,15 +38,19 @@ public class PlayerController : MonoBehaviour
 
     public GameObject shootPoint;
     private Transform shootTrans;
+
+    Animator animator;
 	
 	
 	void Awake()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 	}	
 
 	void Start ()
 	{
+        
         shootTrans = shootPoint.GetComponent<Transform>();
 		_spriteRenderer = GetComponent<SpriteRenderer>();
 		sceneCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraLogic>();
@@ -63,16 +67,15 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+        animator.SetFloat("Speed", Mathf.Abs(moveInput));
 		grounded = Physics2D.OverlapArea(new Vector2(transform.position.x - gizmoX, transform.position.y - gizmoY),
 			new Vector2(transform.position.x + gizmoX, transform.position.y -gizmoY), groundLayer);
-
 		if (grounded&&Input.GetKeyDown(KeyCode.Z))
 		{
 			Jumping = true;
 			jumpCounter = jumpTime;
 			rb2d.velocity = Vector2.up*jumpForce;
 		}
-		
 		if (Input.GetKey(KeyCode.Z)&&Jumping)
 		{
 			if (jumpCounter > 0)
@@ -112,7 +115,7 @@ public class PlayerController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		moveInput = Input.GetAxis("Horizontal");
+		moveInput = Input.GetAxisRaw("Horizontal");
 		rb2d.velocity = new Vector2(moveInput*speed,rb2d.velocity.y);
 		if (!facingRight && moveInput > 0)
 		{
