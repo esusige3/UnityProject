@@ -51,7 +51,8 @@ public class PlayerController : MonoBehaviour
 		_spriteRenderer = GetComponent<SpriteRenderer>();
 		sceneCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraLogic>();
 		Physics2D.IgnoreLayerCollision(9,10,false);
-		health = GameManager.instance.p_HP;
+        Physics2D.IgnoreLayerCollision(10, 11,false);
+        health = GameManager.instance.p_HP;
 		jumpForce = GameManager.instance.p_Jump;
 		speed = GameManager.instance.p_Speed;
 		weaponType = 1;
