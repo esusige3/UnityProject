@@ -46,13 +46,14 @@ public class PlayerController : MonoBehaviour
 	{
 		rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-	}	
+        shootTrans = shootPoint.GetComponent<Transform>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }	
 
 	void Start ()
 	{
         
-        shootTrans = shootPoint.GetComponent<Transform>();
-		_spriteRenderer = GetComponent<SpriteRenderer>();
+        
 		sceneCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraLogic>();
 		Physics2D.IgnoreLayerCollision(9,10,false);
         Physics2D.IgnoreLayerCollision(10, 11,false);
