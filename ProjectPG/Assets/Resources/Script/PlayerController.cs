@@ -79,7 +79,10 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Fall", isFalling);
 
         animator.SetBool("Grounded", grounded);
-
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            UImanager._instanceUiManager.changeFallState(isFalling);
+        }
 		if (grounded&&Input.GetKeyDown(KeyCode.Z))//최초 점프
 		{
 			Jumping = true;
@@ -147,6 +150,8 @@ public class PlayerController : MonoBehaviour
 			isFalling = false;
            
 		}
+
+
 	}
 
 

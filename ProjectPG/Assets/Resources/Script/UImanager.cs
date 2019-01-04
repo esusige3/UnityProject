@@ -35,9 +35,21 @@ public class UImanager : MonoBehaviour
         {
             HpLabel.text = value.ToString();
         }
-        
 		
 	}
+
+    public void changeFallState(bool state)
+    {
+       
+        if (state)
+        {
+            HpLabel.text = "NowFalling";
+        }
+        else
+        {
+            HpLabel.text = "Not!!";
+        }
+    }
 
 	
 

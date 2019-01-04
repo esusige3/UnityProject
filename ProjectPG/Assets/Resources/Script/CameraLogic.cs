@@ -42,8 +42,8 @@ public class CameraLogic : MonoBehaviour
 
 	private void Start()
 	{
-        
-        thisCam.orthographicSize = cameraSize;
+
+        thisCam.fieldOfView = cameraSize;
 		curZoomtime= 0;
 		zoomingNow = false;
 		zoomoutNow = false;
