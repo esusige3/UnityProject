@@ -40,9 +40,15 @@ public class PlayerController : MonoBehaviour
     private Transform shootTrans;
 
     Animator animator;
-	
-	
-	void Awake()
+
+    public Transform groundCheck;
+
+    public float groundCheckRadius;
+
+
+
+
+    void Awake()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -52,8 +58,6 @@ public class PlayerController : MonoBehaviour
 
 	void Start ()
 	{
-        
-        
 		sceneCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraLogic>();
 		Physics2D.IgnoreLayerCollision(9,10,false);
         Physics2D.IgnoreLayerCollision(10, 11,false);
@@ -67,15 +71,21 @@ public class PlayerController : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update ()
-	{
+    {
+        grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        // grounded = Physics2D.OverlapArea(new Vector2(transform.position.x - gizmoX, transform.position.y - gizmoY),new Vector2(transform.position.x + gizmoX, transform.position.y -gizmoY), groundLayer);
+
         animator.SetFloat("Speed", Mathf.Abs(moveInput));
-		grounded = Physics2D.OverlapArea(new Vector2(transform.position.x - gizmoX, transform.position.y - gizmoY),
-			new Vector2(transform.position.x + gizmoX, transform.position.y -gizmoY), groundLayer);
-		if (grounded&&Input.GetKeyDown(KeyCode.Z))
+        animator.SetBool("Fall", isFalling);
+
+        animator.SetBool("Grounded", grounded);
+
+		if (grounded&&Input.GetKeyDown(KeyCode.Z))//최초 점프
 		{
 			Jumping = true;
 			jumpCounter = jumpTime;
 			rb2d.velocity = Vector2.up*jumpForce;
+            animator.SetTrigger("Jump");
 		}
 		if (Input.GetKey(KeyCode.Z)&&Jumping)
 		{
@@ -128,11 +138,14 @@ public class PlayerController : MonoBehaviour
 
 		if (rb2d.velocity.y < -0.1)
 		{
+            
 			isFalling = true;
+           
 		}
 		else
 		{
 			isFalling = false;
+           
 		}
 	}
 

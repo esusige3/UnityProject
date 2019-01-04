@@ -19,11 +19,12 @@ public class CameraLogic : MonoBehaviour
 	[SerializeField]private float maxY;
 	[SerializeField] private float zoomSize;//어디까지 줌 할꺼냐?
 	[SerializeField] private float zoomTime=0;//zoom 적용시간...
+    [SerializeField] private float cameraSize;
     private Camera thisCam;
 	
 	private Transform target;//please put here Player! or Not
 	
-    private float cameraSize = 5f;
+  
 	private float curZoomtime;//current Zooming time	
 	private bool zoomingNow;//zoomingNow?
 	private bool zoomoutNow;
@@ -75,22 +76,23 @@ public class CameraLogic : MonoBehaviour
 
 		if (zoomoutNow)
 		{
-			thisCam.orthographicSize +=2* Time.deltaTime;//보간으로 부드럽게 처리를 하면 더 좋은가?
+			thisCam.fieldOfView +=30* Time.deltaTime;//보간으로 부드럽게 처리를 하면 더 좋은가?
 			
 			//줌 아웃 로직	
-			if (thisCam.orthographicSize >= cameraSize)
+			if (thisCam.fieldOfView >= cameraSize)
 			{
-				thisCam.orthographicSize = cameraSize;
+				thisCam.fieldOfView = cameraSize;
 				zoomoutNow = false;
 			}
 		}
 
 		if (zoomingNow)
 		{
-			thisCam.orthographicSize -= 8*Time.deltaTime;
-			if (thisCam.orthographicSize <= zoomSize)
+			thisCam.fieldOfView -= 30*Time.deltaTime;
+            
+			if (thisCam.fieldOfView <= zoomSize)
 			{
-				thisCam.orthographicSize = zoomSize;
+				thisCam.fieldOfView = zoomSize;
 				curZoomtime = zoomTime;
 				zoomingNow = false;
 			}
