@@ -71,13 +71,17 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float offset_rayR;
     [SerializeField] private float offset_rayL;
+    Vector2 rayR;
+    Vector2 rayL;
+    Vector2 direction;
+    float distance;
     bool isGrounded()
     {
        
-        Vector2 rayR = new Vector2(transform.position.x - offset_rayR,transform.position.y);
-        Vector2 rayL = new Vector2(transform.position.x + offset_rayL, transform.position.y);
-        Vector2 direction = Vector2.down;
-        float distance = 0.8f;
+        rayR = new Vector2(transform.position.x - offset_rayR,transform.position.y);
+        rayL = new Vector2(transform.position.x + offset_rayL, transform.position.y);
+        direction = Vector2.down;
+        distance = 0.8f;
         RaycastHit2D hitR = Physics2D.Raycast(rayR, direction, distance, groundLayer);
         RaycastHit2D hitL = Physics2D.Raycast(rayL, direction, distance, groundLayer);
         Debug.DrawRay(rayR, direction, Color.red);
