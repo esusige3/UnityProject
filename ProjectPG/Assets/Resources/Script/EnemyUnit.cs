@@ -41,6 +41,7 @@ public class EnemyUnit : MonoBehaviour
 
 	void Dead()
 	{
+        CameraLogic._instance_camera.ShakeCamera(0.1f, 0.25f);
 		//Debug.Log("Enemy 사망");
 		gameObject.SetActive(false);
 	}

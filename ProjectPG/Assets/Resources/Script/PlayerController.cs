@@ -42,10 +42,10 @@ public class PlayerController : MonoBehaviour
     Animator animator;
 
     public Transform groundCheck;
-
     public float groundCheckRadius;
+    private bool canMove;
 
-
+    
 
 
     void Awake()
@@ -65,25 +65,49 @@ public class PlayerController : MonoBehaviour
 		jumpForce = GameManager.instance.p_Jump;
 		speed = GameManager.instance.p_Speed;
 		weaponType = 1;
-
-//		HPLABEL.text = health.ToString();
 	}
-	
-	// Update is called once per frame
+
+    // Update is called once per frame
+
+    [SerializeField] private float offset_rayR;
+    [SerializeField] private float offset_rayL;
+    bool isGrounded()
+    {
+        Vector2 rayR = new Vector2(transform.position.x - offset_rayR,transform.position.y);
+        Vector2 rayL = new Vector2(transform.position.x + offset_rayL, transform.position.y);
+        Vector2 direction = Vector2.down;
+        float distance = 1.0f;
+        RaycastHit2D hitR = Physics2D.Raycast(rayR, direction, distance, groundLayer);
+        RaycastHit2D hitL = Physics2D.Raycast(rayL, direction, distance, groundLayer);
+        Debug.DrawRay(rayR, direction, Color.red);
+        Debug.DrawRay(rayL, direction, Color.blue);
+        if (hitR.collider != null||hitL.collider !=null)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 	void Update ()
     {
-        grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        //grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
         // grounded = Physics2D.OverlapArea(new Vector2(transform.position.x - gizmoX, transform.position.y - gizmoY),new Vector2(transform.position.x + gizmoX, transform.position.y -gizmoY), groundLayer);
-
+        grounded = isGrounded();
         animator.SetFloat("Speed", Mathf.Abs(moveInput));
         animator.SetBool("Fall", isFalling);
 
         animator.SetBool("Grounded", grounded);
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Event")) { canMove = false; }
+        else { canMove = true;
+           
+        }
         if (Input.GetKeyDown(KeyCode.T))
         {
             UImanager._instanceUiManager.changeFallState(isFalling);
         }
-		if (grounded&&Input.GetKeyDown(KeyCode.Z))//최초 점프
+		if (grounded&&Input.GetKeyDown(KeyCode.Z)&&canMove)//최초 점프
 		{
 			Jumping = true;
 			jumpCounter = jumpTime;
@@ -108,6 +132,8 @@ public class PlayerController : MonoBehaviour
 		{
 			Jumping = false;
 		}
+
+
         if (Input.GetKeyDown(KeyCode.C))
         {
             switchWeapon();
@@ -129,9 +155,19 @@ public class PlayerController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		moveInput = Input.GetAxisRaw("Horizontal");
-		rb2d.velocity = new Vector2(moveInput*speed,rb2d.velocity.y);
-		if (!facingRight && moveInput > 0)
+        if (canMove)
+        {
+            moveInput = Input.GetAxisRaw("Horizontal");
+           
+        }else if (!canMove)
+        {
+            moveInput = 0;
+        }
+
+        rb2d.velocity = new Vector2(moveInput * speed, rb2d.velocity.y);
+
+
+        if (!facingRight && moveInput > 0)
 		{
 			Flip();
 		}else if (facingRight && moveInput < 0)
@@ -150,7 +186,7 @@ public class PlayerController : MonoBehaviour
 			isFalling = false;
            
 		}
-
+        
 
 	}
 
@@ -188,12 +224,16 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	public void TakeDamage(float damage)
+
+    public void TakeDamage(float damage)
     {
         health -= damage;
         StartCoroutine(TakeDamageEffect());
         sceneCamera.ShakeCamera(0.15f, 0.3f);//Camera
         UImanager._instanceUiManager.ChangeHpLabel((int)health);//UI에 전달
+        animator.SetTrigger("Damage");
+       
+        
 
         if (health <= 0)
 		{
@@ -221,11 +261,7 @@ public class PlayerController : MonoBehaviour
 	
 	
 
-	private void OnDrawGizmos()
-	{
-		Gizmos.color = new Color(0,1,0,0.5f);
-		Gizmos.DrawCube(new Vector2(transform.position.x,transform.position.y-gizmoY),new Vector2(gizmoWidth,gizmoX-gizmoHeight));
-	}
+	
 
 	void Flip()
 	{
