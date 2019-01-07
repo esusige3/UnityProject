@@ -266,9 +266,10 @@ public class PlayerController : MonoBehaviour
 	void Flip()
 	{
         facingRight = !facingRight;
-        shootTrans.Rotate(0f,180f,0f);
+        _spriteRenderer.flipX = !facingRight;
+        /*shootTrans.Rotate(0f,180f,0f);
         Vector3 Scaler = transform.localScale;
         Scaler.x *= -1;
-        transform.localScale = Scaler;
+        transform.localScale = Scaler;*/
     }
 }	
