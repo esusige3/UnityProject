@@ -138,8 +138,8 @@ MonoBehaviour:
   shootPoint: {fileID: 6889883247657877763}
   groundCheck: {fileID: 5881265888059557286}
   groundCheckRadius: 0.145
-  offset_rayR: 0.134
-  offset_rayL: 0.178
+  offset_rayR: 0.132
+  offset_rayL: 0.1768
 --- !u!114 &114976367073126922
 MonoBehaviour:
   m_ObjectHideFlags: 0

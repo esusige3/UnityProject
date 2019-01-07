@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
         Vector2 rayR = new Vector2(transform.position.x - offset_rayR,transform.position.y);
         Vector2 rayL = new Vector2(transform.position.x + offset_rayL, transform.position.y);
         Vector2 direction = Vector2.down;
-        float distance = 1.0f;
+        float distance = 0.8f;
         RaycastHit2D hitR = Physics2D.Raycast(rayR, direction, distance, groundLayer);
         RaycastHit2D hitL = Physics2D.Raycast(rayL, direction, distance, groundLayer);
         Debug.DrawRay(rayR, direction, Color.red);
