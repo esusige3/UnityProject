@@ -120,7 +120,7 @@ public class CameraLogic : MonoBehaviour
 		Vector3 targetPos = target.TransformPoint(new Vector3(0, 1, -10));
 		Vector3 fixedPos = Vector3.SmoothDamp(transform.position, targetPos, ref veloc, smoothness);
 		transform.position = new Vector3(Mathf.Clamp(fixedPos.x,minX,maxX),
-			Mathf.Clamp(fixedPos.y,minY,maxY),fixedPos.z);  
+			Mathf.Clamp(fixedPos.y,minY,maxY),-10f);  
         
 	}
     private void LateUpdate()

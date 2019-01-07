@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField]float gizmoY;
 	private Rigidbody2D rb2d;
 
-	private bool facingRight = true;
+	[SerializeField]private bool facingRight = true;
 	[SerializeField] private bool grounded = false;
 	private bool Jumping;
 	
@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float offset_rayL;
     bool isGrounded()
     {
+       
         Vector2 rayR = new Vector2(transform.position.x - offset_rayR,transform.position.y);
         Vector2 rayL = new Vector2(transform.position.x + offset_rayL, transform.position.y);
         Vector2 direction = Vector2.down;
@@ -190,8 +191,6 @@ public class PlayerController : MonoBehaviour
 
 	}
 
-
-
 	IEnumerator	TakeDamageEffect()
 	{
 		int cntTime = 0;
@@ -233,15 +232,10 @@ public class PlayerController : MonoBehaviour
         UImanager._instanceUiManager.ChangeHpLabel((int)health);//UI에 전달
         animator.SetTrigger("Damage");
        
-        
-
         if (health <= 0)
 		{
 			PlayerDead();
-        }
-           
-
-        
+        }   
 	}
 
 	public void PlayerDead()
@@ -266,10 +260,13 @@ public class PlayerController : MonoBehaviour
 	void Flip()
 	{
         facingRight = !facingRight;
-        _spriteRenderer.flipX = !facingRight;
-        /*shootTrans.Rotate(0f,180f,0f);
-        Vector3 Scaler = transform.localScale;
+        transform.Rotate(0f,180f, 0f);
+        if (!facingRight) { offset_rayL = offset_rayL * -1; offset_rayR = offset_rayR * -1; }
+        else if (facingRight) { offset_rayL = Mathf.Abs(offset_rayL); offset_rayR = Mathf.Abs(offset_rayR); }
+        //shootTrans.Rotate(0f,180f,0f);
+        /*Vector3 Scaler = transform.localScale;
         Scaler.x *= -1;
-        transform.localScale = Scaler;*/
+        transform.localScale = Scaler;
+        transform.Rotate(0f, 180f, 0f);*/
     }
 }	
